@@ -1,6 +1,6 @@
 {
   "name": "code-clerk",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Pulls project metadata from GitHub repositories.",
   "main": "lib/index.js",
   "scripts": {
@@ -10,7 +10,7 @@
   "author": "Jeff Fredrickson <jeffrey.fredrickson@gsa.gov>",
   "license": "CC0-1.0",
   "bin": {
-    "codeclerk": "bin/code-clerk.js"
+    "codeclerk": "bin/codeclerk.js"
   },
   "dependencies": {
     "argparse": "^1.0.10",
