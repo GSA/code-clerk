@@ -1,0 +1,27 @@
+{
+  "name": "code-clerk",
+  "version": "0.1.0",
+  "description": "Pulls project metadata from GitHub repositories.",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "nyc mocha",
+    "autotest": "supervisor -w lib,test -n exit -x mocha -- -b"
+  },
+  "author": "Jeff Fredrickson <jeffrey.fredrickson@gsa.gov>",
+  "license": "CC0-1.0",
+  "bin": {
+    "codeclerk": "bin/code-clerk.js"
+  },
+  "dependencies": {
+    "graphql-request": "^1.6.0",
+    "js-yaml": "^3.12.0",
+    "jsonata": "^1.5.4"
+  },
+  "devDependencies": {
+    "djv": "^2.0.0",
+    "mocha": "^5.2.0",
+    "nyc": "^12.0.2",
+    "sinon": "^6.0.0",
+    "supervisor": "^0.12.0"
+  }
+}

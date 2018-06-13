@@ -1,0 +1,52 @@
+{
+  "data": {
+    "repository": {
+      "name": "cto-website",
+      "description": "Tech at GSA website",
+      "licenseInfo": {
+        "key": "other",
+        "url": "http://choosealicense.com/licenses/other/"
+      },
+      "repositoryTopics": {
+        "nodes": [
+          {
+            "topic": {
+              "name": "federalist"
+            }
+          },
+          {
+            "topic": {
+              "name": "jekyll"
+            }
+          }
+        ]
+      },
+      "isPrivate": false,
+      "url": "https://github.com/GSA/cto-website",
+      "codeInventoryFile": {
+        "text": "name: Tech at GSA Website\ncontact:\n  email: cto@gsa.gov\nlanguages:\n  - javascript\n  - ruby\n"
+      },
+      "homepageUrl": "https://tech.gsa.gov/",
+      "languages": {
+        "nodes": [
+          {
+            "name": "Ruby"
+          },
+          {
+            "name": "HTML"
+          },
+          {
+            "name": "CSS"
+          },
+          {
+            "name": "JavaScript"
+          }
+        ]
+      },
+      "owner": {
+        "login": "GSA",
+        "email": "gsa-github.support@gsa.gov"
+      }
+    }
+  }
+}
