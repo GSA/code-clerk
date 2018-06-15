@@ -36,6 +36,10 @@ if (!process.env[args.token_var]) {
 const client = new clerk.GitHubClient(process.env[args.token_var])
 const inventory = new clerk.Inventory(client, args.AGENCY[0])
 
-inventory.build(args.GITHUB_ORG).then((data) => {
-  console.log(JSON.stringify(data))
-})
+inventory.build(args.GITHUB_ORG)
+  .then((data) => {
+    console.log(JSON.stringify(data))
+  })
+  .catch((err) => {
+    console.error(err)
+  })
