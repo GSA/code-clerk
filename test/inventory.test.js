@@ -3,6 +3,7 @@ const assert = require("assert")
 const sinon = require("sinon")
 const loadFixture = require("./testHelper").loadFixture
 const djv = require("djv")
+const yaml = require("js-yaml")
 
 describe("Inventory", function () {
   beforeEach(function() {
@@ -27,29 +28,6 @@ describe("Inventory", function () {
       return this.inventory.build("ABC").then(() => {
         assert.equal(getReleasesStub.callCount, 1)
       })
-    })
-  })
-
-  describe("#processOverrides()", function () {
-    it("returns overrides from YAML", function () {
-      const originalMetadata = {
-        name: "ABC",
-        description: "Project ABC",
-        contact: {
-          email: "abc@example.com"
-        }
-      }
-
-      const yaml = `
-        name: XYZ
-        contact:
-          email: xyz@example.com
-      `
-
-      const result = this.inventory.processOverrides(originalMetadata, yaml)
-      assert.equal(result.name, "XYZ")
-      assert.equal(result.description, "Project ABC")
-      assert.equal(result.contact.email, "xyz@example.com")
     })
   })
 
