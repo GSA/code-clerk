@@ -4,6 +4,8 @@ const clerk = require("../lib/index")
 const ArgumentParser = require("argparse").ArgumentParser
 const package = require("../package.json")
 
+require("dotenv").config()
+
 let argParser = new ArgumentParser({
   version: package.version,
   addHelp: true,
