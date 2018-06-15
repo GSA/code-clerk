@@ -1,8 +1,6 @@
 #!/usr/bin/env node
 
-// const clerk = require("code-clerk")
 const clerk = require("../lib/index")
-// const argparse = require("argparse")
 const ArgumentParser = require("argparse").ArgumentParser
 const package = require("../package.json")
 
