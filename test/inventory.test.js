@@ -3,11 +3,12 @@ const assert = require("assert")
 const sinon = require("sinon")
 const loadFixture = require("./testHelper").loadFixture
 const djv = require("djv")
+const transforms = require("../lib/transforms")
 
 describe("Inventory", function () {
   beforeEach(function() {
-    this.client = sinon.spy(clerk.Client)
-    this.inventory = new clerk.Inventory(this.client, "ABC")
+    let client = new clerk.GitHubClient("abc123")
+    this.inventory = new clerk.Inventory(client, "ABC")
   })
 
   afterEach(function() {
@@ -26,6 +27,36 @@ describe("Inventory", function () {
       const getReleasesStub = sinon.stub(clerk.Inventory.prototype, "getReleases")
       return this.inventory.build("ABC").then(() => {
         assert.equal(getReleasesStub.callCount, 1)
+      })
+    })
+  })
+
+  describe("#getReleases()", function () {
+    it("correctly performs YAML overrides", function () {
+      const repoEdgesFixture = require("./fixtures/getAllRepositoriesResult")
+      const getAllRepositoriesStub = sinon.stub(clerk.GitHubClient.prototype, "getAllRepositories")
+      getAllRepositoriesStub.resolves(repoEdgesFixture)
+
+      return this.inventory.getReleases("ABC", transforms.defaultGitHubTransform).then((result) => {
+        assert.equal(result[0].name, "Test 1 Override")
+        assert.equal(result[0].description, "Description override")
+        assert.equal(result[1].name, "mobile-fu")
+      })
+    })
+
+    it("correctly performs local overrides", function () {
+      const repoEdgesFixture = require("./fixtures/getAllRepositoriesResult")
+      const getAllRepositoriesStub = sinon.stub(clerk.GitHubClient.prototype, "getAllRepositories")
+      getAllRepositoriesStub.resolves(repoEdgesFixture)
+
+      const localOverrides = {
+        contact: {
+          email: "test@example.com"
+        }
+      }
+      return this.inventory.getReleases("ABC", transforms.defaultGitHubTransform, localOverrides).then((result) => {
+        assert.equal(result[0].contact.email, "test@example.com")
+        assert.equal(result[1].contact.email, "test@example.com")
       })
     })
   })
