@@ -42,7 +42,7 @@ describe("GitHubClient", function () {
       const fixtureData = JSON.parse(loadFixture("organizationQueryResponse.json")).data
 
       return this.client.getAllRepositories("dummyorg").then((actualResponse) => {
-        assert.equal(actualResponse.organization.repositories.edges.length, 3)
+        assert.equal(actualResponse.length, 3)
       })
     })
   })

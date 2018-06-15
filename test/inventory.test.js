@@ -3,7 +3,6 @@ const assert = require("assert")
 const sinon = require("sinon")
 const loadFixture = require("./testHelper").loadFixture
 const djv = require("djv")
-const yaml = require("js-yaml")
 
 describe("Inventory", function () {
   beforeEach(function() {
@@ -28,6 +27,21 @@ describe("Inventory", function () {
       return this.inventory.build("ABC").then(() => {
         assert.equal(getReleasesStub.callCount, 1)
       })
+    })
+  })
+
+  describe("#transform()", function () {
+    it("correctly executes a transform on data", function () {
+      const transform = `{
+        "name": name,
+        "description": $boolean(description) ? description : name,
+        "nonexistent": nonexistent
+      }`
+      const repoData = JSON.parse(loadFixture("repositoryQueryResponse.json")).data.repository
+      const result = this.inventory.applyTransform(transform, repoData)
+      assert.equal(result.name, "cto-website")
+      assert.equal(result.description, "Tech at GSA website")
+      assert.equal(result.nonexistent, undefined)
     })
   })
 
