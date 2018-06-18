@@ -32,6 +32,18 @@ inventory.build(orgs).then((data) => {
 })
 ```
 
+#### Transforms
+
+TODO: Information on custom transforms.
+
+#### Overrides
+
+TODO: Information on custom overrides.
+
+#### Callback
+
+TODO: Information on custom callbacks.
+
 ### CLI
 
 First, check out the built-in usage information:
