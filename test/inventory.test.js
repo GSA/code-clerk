@@ -13,6 +13,18 @@ describe("Inventory", function () {
     sinon.restore()
   })
 
+  describe("#constructor()", function () {
+    it("handles a null metadata parameter by providing defaults", function () {
+      const inventory = new clerk.Inventory(this.client, "ABC", null, {})
+      assert.equal(inventory.measurementType, "modules")
+    })
+
+    it("handles a null options parameter by providing defaults", function () {
+      const inventory = new clerk.Inventory(this.client, "ABC", {}, null)
+      assert.equal(inventory.localOverrides, null)
+    })
+  })
+
   describe("#build()", function () {
     it("handles an Array arg for the org parameter", function () {
       const getReleasesStub = sinon.stub(clerk.Inventory.prototype, "getReleases")
