@@ -14,13 +14,8 @@ describe("Inventory", function () {
   })
 
   describe("#constructor()", function () {
-    it("handles a null metadata parameter by providing defaults", function () {
-      const inventory = new clerk.Inventory(this.client, "ABC", null, {})
-      assert.equal(inventory.measurementType, "modules")
-    })
-
     it("handles a null options parameter by providing defaults", function () {
-      const inventory = new clerk.Inventory(this.client, "ABC", {}, null)
+      const inventory = new clerk.Inventory(this.client, "ABC", null)
       assert.equal(inventory.localOverrides, null)
     })
   })
@@ -68,7 +63,7 @@ describe("Inventory", function () {
         }
       }
 
-      const inventory = new clerk.Inventory(this.client, "ABC", null, {
+      const inventory = new clerk.Inventory(this.client, "ABC", {
         localOverrides: localOverrides
       })
 
@@ -89,7 +84,7 @@ describe("Inventory", function () {
         callbackCounter++
       }
 
-      const inventory = new clerk.Inventory(this.client, "ABC", null, {
+      const inventory = new clerk.Inventory(this.client, "ABC", {
         callback: callback
       })
 
@@ -107,7 +102,7 @@ describe("Inventory", function () {
 
       const callback = sinon.spy()
 
-      const inventory = new clerk.Inventory(this.client, "ABC", null, {
+      const inventory = new clerk.Inventory(this.client, "ABC", {
         callback: callback
       })
 
