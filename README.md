@@ -60,7 +60,7 @@ Assuming:
 * Your agency's acronym is _ABC_
 * Your agency has two GitHub organizations, named _AgencyABC_ and _AgencyXYZ_
 
-You could get your code.json output by running this command:
+You could get your code.json output by running this command (prints the JSON to your console):
 
 ```sh
 codeclerk ABC AgencyABC AgencyXYZ
@@ -74,8 +74,8 @@ Assuming:
 * Your agency's acronym is _XYZ_
 * Your agency has one GitHub organization, named _XYZ_
 
-You could get your code.json output by running this command:
+You could get your code.json output by running this command (saves the JSON to a file named `code.json`):
 
 ```sh
-codeclerk -t GITHUB_TOKEN XYZ XYZ
+codeclerk -t GITHUB_TOKEN -o code.json XYZ XYZ
 ```
