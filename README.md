@@ -18,6 +18,42 @@ npm install -g code-clerk
 
 ## Usage
 
+### CLI Usage
+
+First, check out the built-in usage information:
+
+```sh
+codeclerk --help
+```
+
+#### Example 1
+
+Assuming:
+
+* Your GitHub access token is in an environment variable named `GITHUB_ACCESS_TOKEN` (the default)
+* Your agency's acronym is _ABC_
+* Your agency has two GitHub organizations, named _AgencyABC_ and _AgencyXYZ_
+
+You could get your code.json output by running this command (prints the JSON to your console):
+
+```sh
+codeclerk ABC AgencyABC AgencyXYZ
+```
+
+#### Example 2
+
+Assuming:
+
+* Your GitHub access token is in an environment variable named `GITHUB_TOKEN`
+* Your agency's acronym is _XYZ_
+* Your agency has one GitHub organization, named _XYZ_
+
+You could get your code.json output by running this command (saves the JSON to a file named `code.json`):
+
+```sh
+codeclerk -t GITHUB_TOKEN -o code.json XYZ XYZ
+```
+
 ### Basic API Usage
 
 You can easily integrate Code Clerk into your project. Just instantiate a client and run the inventory on your GitHub organization(s). The data returned by the inventory follows the `code.json` format. If your repository includes a `.codeinventory.yml` file, its contents will override any metadata that Code Clerk automatically
@@ -81,40 +117,4 @@ function myCallback(releaseMetadata, org) {
   console.log(`Currently processing repository ${releaseMetadata.name} in the GitHub organization ${org}`)
 }
 const inventory = new clerk.Inventory(client, "ABC", { callback: myCallback })
-```
-
-### CLI Usage
-
-First, check out the built-in usage information:
-
-```sh
-codeclerk --help
-```
-
-#### Example 1
-
-Assuming:
-
-* Your GitHub access token is in an environment variable named `GITHUB_ACCESS_TOKEN` (the default)
-* Your agency's acronym is _ABC_
-* Your agency has two GitHub organizations, named _AgencyABC_ and _AgencyXYZ_
-
-You could get your code.json output by running this command (prints the JSON to your console):
-
-```sh
-codeclerk ABC AgencyABC AgencyXYZ
-```
-
-#### Example 2
-
-Assuming:
-
-* Your GitHub access token is in an environment variable named `GITHUB_TOKEN`
-* Your agency's acronym is _XYZ_
-* Your agency has one GitHub organization, named _XYZ_
-
-You could get your code.json output by running this command (saves the JSON to a file named `code.json`):
-
-```sh
-codeclerk -t GITHUB_TOKEN -o code.json XYZ XYZ
 ```
