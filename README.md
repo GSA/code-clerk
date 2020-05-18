@@ -74,7 +74,7 @@ inventory.build(orgs).then((data) => {
 
 If you want to customize the way Code Clerk builds your `code.json` file, you can do so via *transforms* and *overrides*.
 
-##### Transforms
+#### Transforms
 
 A transform is simply a [JSONata](https://jsonata.org/) expression that takes a GitHub GraphQL API response and turns it into a format compatible with the Code.gov schema.
 
@@ -91,7 +91,7 @@ const myCustomTransform = `{
 const inventory = new clerk.Inventory(client, "ABC", { transform: myCustomTransform })
 ```
 
-##### Overrides
+#### Overrides
 
 An override lets you manually specify a value to use in your repositories' metadata instead of what Code Clerk automatically pulls from the GitHub GraphQL API.
 
@@ -106,7 +106,7 @@ const myOverrides = {
 const inventory = new clerk.Inventory(client, "ABC", { localOverrides: myOverrides })
 ```
 
-##### Callback
+#### Callback
 
 While Code Clerk is building an inventory of your organization's repositories, it can report back some status information on what it is currently processing.
 
