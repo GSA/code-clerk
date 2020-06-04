@@ -1,6 +1,6 @@
 {
   "name": "code-clerk",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "Pulls project metadata from GitHub repositories.",
   "main": "lib/index.js",
   "scripts": {
@@ -16,13 +16,13 @@
     "argparse": "^1.0.10",
     "dotenv": "^6.2.0",
     "graphql-request": "^1.8.2",
-    "js-yaml": "^3.13.1",
+    "js-yaml": "^3.14.0",
     "jsonata": "^1.8.3",
     "url": "^0.11.0"
   },
   "devDependencies": {
     "djv": "^2.1.2",
-    "mocha": "^7.1.2",
+    "mocha": "^7.2.0",
     "nyc": "^14.1.1",
     "sinon": "^6.3.5",
     "supervisor": "^0.12.0"
