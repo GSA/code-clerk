@@ -1,0 +1,27 @@
+{
+  "name": "project-1",
+  "description": "Project #1",
+  "permissions": {
+    "licenses": [
+      {
+        "URL": "http://choosealicense.com/licenses/agpl-3.0/",
+        "name": "agpl-3.0"
+      }
+    ],
+    "usageType": "openSource"
+  },
+  "tags": [
+    "GSA"
+  ],
+  "repositoryURL": " https://extraneous-spaces.example.com/ ",
+  "homepageURL": "missing-schema.example.com/path",
+  "contact": {
+    "email": "project-1@example.com"
+  },
+  "languages": [
+    "Python"
+  ],
+  "laborHours": 0,
+  "vcs": "git",
+  "organization": "GSA"
+}

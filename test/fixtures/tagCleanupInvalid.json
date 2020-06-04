@@ -1,0 +1,30 @@
+{
+  "name": "project-1",
+  "description": "Project #1",
+  "permissions": {
+    "licenses": [
+      {
+        "URL": "http://choosealicense.com/licenses/agpl-3.0/",
+        "name": "agpl-3.0"
+      }
+    ],
+    "usageType": "openSource"
+  },
+  "tags": [
+    "foo",
+    123,
+    "bar",
+    456
+  ],
+  "repositoryURL": "https://example.com/",
+  "homepageURL": "https://example.com/",
+  "contact": {
+    "email": "project-1@example.com"
+  },
+  "languages": [
+    "Python"
+  ],
+  "laborHours": 0,
+  "vcs": "git",
+  "organization": "GSA"
+}
