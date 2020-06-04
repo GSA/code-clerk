@@ -1,6 +1,6 @@
 {
   "name": "code-clerk",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "Pulls project metadata from GitHub repositories.",
   "main": "lib/index.js",
   "scripts": {
