@@ -113,6 +113,28 @@ describe("Inventory", function () {
     })
   })
 
+  describe("#cleanup()", function () {
+    it("repairs poorly formed URIs", function () {
+      const uriFixture = JSON.parse(loadFixture("uriCleanupInvalid.json"))
+      const inventory = new clerk.Inventory(this.client, "ABC")
+      const result = inventory.cleanup(uriFixture)
+      assert.equal(result.repositoryURL, "https://extraneous-spaces.example.com/")
+      assert.equal(result.homepageURL, "http://missing-schema.example.com/path")
+    })
+
+    it("ensures tags are always strings", function () {
+      const tagFixture = JSON.parse(loadFixture("tagCleanupInvalid.json"))
+      const inventory = new clerk.Inventory(this.client, "ABC")
+      const result = inventory.cleanup(tagFixture)
+      assert(result.tags.includes("foo"))
+      assert(result.tags.includes("123"))
+      assert(result.tags.includes("bar"))
+      assert(result.tags.includes("456"))
+      assert(!result.tags.includes(123))
+      assert(!result.tags.includes(456))
+    })
+  })
+
   describe("#transform()", function () {
     it("correctly executes a transform on data", function () {
       const transform = `{
