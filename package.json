@@ -3,6 +3,9 @@
   "version": "0.3.4",
   "description": "Pulls project metadata from GitHub repositories.",
   "type": "module",
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "main": "./lib/index.js",
   "exports": "./lib/index.js",
   "scripts": {
