@@ -1,14 +1,13 @@
-const clerk = require("../lib/index")
-const queries = require("../lib/queries")
-const assert = require("assert")
-const sinon = require("sinon")
-const loadFixture = require("./testHelper").loadFixture
-const fakeGraphQLResponse = require("./testHelper").fakeGraphQLResponse
-const GraphQLClient = require("graphql-request").GraphQLClient
+import { GitHubClient } from "../lib/index.js"
+import { repositoryQuery } from "../src/queries.js"
+import assert from "assert"
+import sinon from "sinon"
+import { loadFixture, fakeGraphQLResponse } from "./testHelper.js"
+import { GraphQLClient } from "graphql-request"
 
 describe("GitHubClient", function () {
   beforeEach(function() {
-    this.client = new clerk.GitHubClient("abc123")
+    this.client = new GitHubClient("abc123")
   })
 
   afterEach(function() {
@@ -18,7 +17,7 @@ describe("GitHubClient", function () {
   describe("#getRepository()", function () {
     it("should call the GraphQL client properly", function () {
       const mock = sinon.mock(GraphQLClient.prototype)
-      mock.expects("request").withArgs(queries.repositoryQuery, { org: "fakeOrg", repo: "fakeRepo" })
+      mock.expects("request").withArgs(repositoryQuery, { org: "fakeOrg", repo: "fakeRepo" })
       this.client.getRepository("fakeOrg", "fakeRepo")
       mock.verify()
     })
@@ -39,7 +38,6 @@ describe("GitHubClient", function () {
     it("should return GitHub metadata as an object", function () {
       const gqlClientRequestStub = sinon.stub(GraphQLClient.prototype, "request")
       gqlClientRequestStub.resolves(fakeGraphQLResponse("organizationQueryResponse.json"))
-      const fixtureData = JSON.parse(loadFixture("organizationQueryResponse.json")).data
 
       return this.client.getAllRepositories("dummyorg").then((actualResponse) => {
         assert.equal(actualResponse.length, 3)

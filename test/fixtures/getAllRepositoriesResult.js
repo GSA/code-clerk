@@ -1,6 +1,6 @@
 // Simulates a successful result from client.getAllRepositories()
 
-module.exports = [ { node:
+export default [ { node:
   { name: 'test1',
     description: 'Test project #1',
     licenseInfo: null,

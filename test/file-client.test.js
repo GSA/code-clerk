@@ -1,13 +1,12 @@
-const clerk = require("../lib/index")
-const assert = require("assert")
-const sinon = require("sinon")
-const path = require("path")
-const loadFixture = require("./testHelper").loadFixture
+import { FileClient } from "../lib/index.js"
+import assert from "assert"
+import sinon from "sinon"
+import path from "path"
 
 describe("FileClient", function () {
   beforeEach(function() {
-    const filename = path.resolve(__dirname, "fixtures", "organizationQueryResponse.json")
-    this.client = new clerk.FileClient(filename)
+    const filename = path.resolve(import.meta.dirname, "fixtures", "organizationQueryResponse.json")
+    this.client = new FileClient(filename)
   })
 
   afterEach(function() {
@@ -16,8 +15,6 @@ describe("FileClient", function () {
 
   describe("#getAllRepositories()", function () {
     it("should return GitHub metadata as an object", function () {
-      const fixtureData = JSON.parse(loadFixture("organizationQueryResponse.json")).data
-
       return this.client.getAllRepositories("dummyorg").then((actualResponse) => {
         assert.equal(actualResponse.length, 3)
       })

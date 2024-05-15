@@ -1,8 +1,8 @@
-const yaml = require("js-yaml")
-const jsonata = require("jsonata")
-const transforms = require("./transforms")
+import yaml from "js-yaml"
+import jsonata from "jsonata"
+import { defaultGitHubTransform } from "./transforms.js"
 
-module.exports = class Inventory {
+export class Inventory {
 
   constructor(client, agency, options = {}) {
     // Handle null parameters if needed
@@ -17,7 +17,7 @@ module.exports = class Inventory {
     this.releases = []
 
     // Inventory build options
-    this.transform = options.transform || transforms.defaultGitHubTransform
+    this.transform = options.transform || defaultGitHubTransform
     this.localOverrides = options.localOverrides
     this.callback = options.callback || (() => {})
   }

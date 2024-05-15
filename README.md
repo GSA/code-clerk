@@ -56,13 +56,13 @@ codeclerk -t GITHUB_TOKEN -o code.json XYZ XYZ
 
 ### Basic API Usage
 
-You can easily integrate Code Clerk into your project. Just instantiate a client and run the inventory on your GitHub organization(s). The data returned by the inventory follows the `code.json` format. If your repository includes a `.codeinventory.yml` file, its contents will override any metadata that Code Clerk automatically
+You can easily integrate Code Clerk into your project. Just instantiate a client and run the inventory on your GitHub organization(s). The data returned by the inventory follows the `code.json` format. If your repository includes a `.codeinventory.yml` file, its contents will override any metadata that Code Clerk automatically pulls from GitHub.
 
 ```javascript
-const clerk = require("code-clerk")
+import { GitHubClient, Inventory } from "code-clerk"
 
-const client = new clerk.GitHubClient(YOUR_GITHUB_ACCESS_TOKEN)
-const inventory = new clerk.Inventory(client, "ABC") // ABC is your agency acronym
+const client = new GitHubClient(YOUR_GITHUB_ACCESS_TOKEN)
+const inventory = new Inventory(client, "ABC") // ABC is your agency acronym
 const orgs = ["ABC", "AgencyZ"] // List of GitHub organization names
 
 inventory.build(orgs).then((data) => {
@@ -78,7 +78,7 @@ If you want to customize the way Code Clerk builds your `code.json` file, you ca
 
 A transform is simply a [JSONata](https://jsonata.org/) expression that takes a GitHub GraphQL API response and turns it into a format compatible with the Code.gov schema.
 
-You can see the included transforms in [transform.js](lib/transforms.js). There are two: `defaultGitHubTransform` and `minimumGitHubTransform`. The default transform tries to make as much use of GitHub metadata as possible when building your `code.json`. The minimum transform only takes the necessary GitHub metadata to build a `code.json` that meets the bare minimum specified by the Code.gov schema.
+You can see the included transforms in [src/transforms.js](src/transforms.js) of this package's source code. There are two: `defaultGitHubTransform` and `minimumGitHubTransform`. The default transform tries to make as much use of GitHub metadata as possible when building your `code.json`. The minimum transform only takes the necessary GitHub metadata to build a `code.json` that meets the bare minimum specified by the Code.gov schema.
 
 You can write your own transform if the included transforms don't meet your needs. Refer to the [JSONata documentation](http://docs.jsonata.org/overview.html) for guidance on how to write JSONata transforms.
 
@@ -88,7 +88,7 @@ To use your custom transform:
 const myCustomTransform = `{
   (your custom JSONata transform goes here)
 }`
-const inventory = new clerk.Inventory(client, "ABC", { transform: myCustomTransform })
+const inventory = new Inventory(client, "ABC", { transform: myCustomTransform })
 ```
 
 #### Overrides
@@ -103,7 +103,7 @@ const myOverrides = {
     email: "opensource@example.gov"
   }
 }
-const inventory = new clerk.Inventory(client, "ABC", { localOverrides: myOverrides })
+const inventory = new Inventory(client, "ABC", { localOverrides: myOverrides })
 ```
 
 #### Callback
@@ -116,5 +116,5 @@ An example would be to print which repository Code Clerk is currently processing
 function myCallback(releaseMetadata, org) {
   console.log(`Currently processing repository ${releaseMetadata.name} in the GitHub organization ${org}`)
 }
-const inventory = new clerk.Inventory(client, "ABC", { callback: myCallback })
+const inventory = new Inventory(client, "ABC", { callback: myCallback })
 ```
