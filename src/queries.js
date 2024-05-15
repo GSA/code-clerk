@@ -21,7 +21,8 @@
  *   }
  * }
  */
-module.exports.organizationQuery = `query($org: String!, $cursor: String, $itemsPerPage: Int) {
+
+export const organizationQuery = `query($org: String!, $cursor: String, $itemsPerPage: Int) {
   organization(login: $org) {
     repositories(first: $itemsPerPage, after: $cursor) {
       totalCount
@@ -73,7 +74,7 @@ module.exports.organizationQuery = `query($org: String!, $cursor: String, $items
 /**
  * Get metadata on a specific repository within an organization.
  */
-module.exports.repositoryQuery = `query($org: String!, $repo: String!) {
+export const repositoryQuery = `query($org: String!, $repo: String!) {
   repository(owner: $org, name: $repo) {
     name
     description

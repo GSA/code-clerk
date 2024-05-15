@@ -2,10 +2,12 @@
   "name": "code-clerk",
   "version": "0.3.4",
   "description": "Pulls project metadata from GitHub repositories.",
-  "main": "lib/index.js",
+  "type": "module",
+  "main": "./lib/index.js",
+  "exports": "./lib/index.js",
   "scripts": {
-    "test": "nyc mocha",
-    "autotest": "supervisor -w lib,test -n exit -x mocha -- -b"
+    "test": "mocha",
+    "autotest": "supervisor -t -q -w src,lib,test,bin -n exit -x mocha -- -b"
   },
   "author": "Jeff Fredrickson <jeffrey.fredrickson@gsa.gov>",
   "license": "CC0-1.0",
@@ -17,8 +19,7 @@
     "dotenv": "^16.4.5",
     "graphql-request": "^1.8.2",
     "js-yaml": "^4.1.0",
-    "jsonata": "^2.0.5",
-    "url": "^0.11.3"
+    "jsonata": "^2.0.5"
   },
   "devDependencies": {
     "djv": "^2.1.4",

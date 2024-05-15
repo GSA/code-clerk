@@ -5,7 +5,7 @@
  * This transform meets the Code.gov schema minimum requirements, plus tries
  * to make the most use of available GitHub metadata.
  */
-module.exports.defaultGitHubTransform = `{
+export const defaultGitHubTransform = `{
 	"name": name,
   "description": $boolean(description) ? description : name,
 	"permissions": {
@@ -35,7 +35,7 @@ module.exports.defaultGitHubTransform = `{
  *
  * This transform provides the bare minimum required by Code.gov.
  */
-module.exports.minimumGitHubTransform = `{
+export const minimumGitHubTransform = `{
 	"name": name,
   "description": $boolean(description) ? description : name,
 	"permissions": {

@@ -1,16 +1,17 @@
-#!/usr/bin/env node
+#!/usr/bin/env -S node --no-warnings=ExperimentalWarning
 
-const clerk = require("../lib/index")
-const ArgumentParser = require("argparse").ArgumentParser
-const package = require("../package.json")
-const fs = require("fs")
+import { GitHubClient, Inventory } from "../lib/index.js"
+import { ArgumentParser } from "argparse"
+import pkg from "../package.json" assert { type: "json" }
+import fs from "fs"
+import dotenv from "dotenv"
 
-require("dotenv").config()
+dotenv.config()
 
 const argParser = new ArgumentParser({
-  version: package.version,
+  version: pkg.version,
   addHelp: true,
-  description: package.description
+  description: pkg.description
 })
 
 argParser.addArgument([ "-t", "--token-var" ], {
@@ -56,8 +57,8 @@ const options = {
   }
 }
 
-const client = new clerk.GitHubClient(process.env[args.token_var])
-const inventory = new clerk.Inventory(client, args.AGENCY[0], options)
+const client = new GitHubClient(process.env[args.token_var])
+const inventory = new Inventory(client, args.AGENCY[0], options)
 
 inventory.build(args.GITHUB_ORG)
   .then((data) => {

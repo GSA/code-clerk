@@ -1,16 +1,20 @@
-#!/usr/bin/env node
+#!/usr/bin/env -S node --no-warnings=ExperimentalWarning
 
-const clerk = require("../lib/index")
-const ArgumentParser = require("argparse").ArgumentParser
-const package = require("../package.json")
-const fs = require("fs")
+// This CLI tool parses a file that contains GitHub GraphQL API results. It is
+// mostly for debugging at this point.
 
-require("dotenv").config()
+import { FileClient, Inventory } from "../lib/index.js"
+import { ArgumentParser } from "argparse"
+import pkg from "../package.json" assert { type: "json" }
+import fs from "fs"
+import dotenv from "dotenv"
+
+dotenv.config()
 
 const argParser = new ArgumentParser({
-  version: package.version,
+  version: pkg.version,
   addHelp: true,
-  description: package.description
+  description: pkg.description
 })
 
 argParser.addArgument([ "-o", "--output-file" ], {
@@ -45,8 +49,8 @@ const options = {
   }
 }
 
-const client = new clerk.FileClient(args.FILENAME[0])
-const inventory = new clerk.Inventory(client, args.AGENCY[0], options)
+const client = new FileClient(args.FILENAME[0])
+const inventory = new Inventory(client, args.AGENCY[0], options)
 
 inventory.build(args.AGENCY[0])
   .then((data) => {

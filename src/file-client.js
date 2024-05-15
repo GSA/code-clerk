@@ -1,6 +1,6 @@
-const fs = require('fs').promises
+import fs from "fs/promises"
 
-module.exports = class FileClient {
+export class FileClient {
   /**
    * Provides a client based on a local GraphQL output file
    * @param {String} filename GraphQL output file
@@ -15,12 +15,11 @@ module.exports = class FileClient {
    * @param {String} org GitHub organization name
    * @returns {Promise<any[]>} An array of repositories
    */
-  getAllRepositories(org) {
-    return fs.readFile(this.filename).then(contents => {
-      const metadata = JSON.parse(contents)
-      const result = metadata.data.organization.repositories.edges
-      return result
-    })
+  async getAllRepositories(org) {
+    const contents = await fs.readFile(this.filename)
+    const metadata = JSON.parse(contents)
+    const result = metadata.data.organization.repositories.edges
+    return result
   }
 
   /**

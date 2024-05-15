@@ -1,12 +1,13 @@
-const clerk = require("../lib/index")
-const assert = require("assert")
-const sinon = require("sinon")
-const loadFixture = require("./testHelper").loadFixture
-const djv = require("djv")
+import { Inventory, GitHubClient } from "../lib/index.js"
+import assert from "assert"
+import sinon from "sinon"
+import { loadFixture } from "./testHelper.js"
+import djv from "djv"
+import repoEdgesFixture from "./fixtures/getAllRepositoriesResult.js"
 
 describe("Inventory", function () {
   beforeEach(function() {
-    this.client = new clerk.GitHubClient("abc123")
+    this.client = new GitHubClient("abc123")
   })
 
   afterEach(function() {
@@ -15,23 +16,23 @@ describe("Inventory", function () {
 
   describe("#constructor()", function () {
     it("handles a null options parameter by providing defaults", function () {
-      const inventory = new clerk.Inventory(this.client, "ABC", null)
+      const inventory = new Inventory(this.client, "ABC", null)
       assert.equal(inventory.localOverrides, null)
     })
   })
 
   describe("#build()", function () {
     it("handles an Array arg for the org parameter", function () {
-      const getReleasesStub = sinon.stub(clerk.Inventory.prototype, "getReleases")
-      const inventory = new clerk.Inventory(this.client, "ABC")
+      const getReleasesStub = sinon.stub(Inventory.prototype, "getReleases")
+      const inventory = new Inventory(this.client, "ABC")
       return inventory.build(["ABC", "DEF", "XYZ"]).then(() => {
         assert.equal(getReleasesStub.callCount, 3)
       })
     })
 
     it("handles a String arg for the org parameter", function () {
-      const getReleasesStub = sinon.stub(clerk.Inventory.prototype, "getReleases")
-      const inventory = new clerk.Inventory(this.client, "ABC")
+      const getReleasesStub = sinon.stub(Inventory.prototype, "getReleases")
+      const inventory = new Inventory(this.client, "ABC")
       return inventory.build("ABC").then(() => {
         assert.equal(getReleasesStub.callCount, 1)
       })
@@ -40,10 +41,9 @@ describe("Inventory", function () {
 
   describe("#getReleases()", function () {
     it("correctly performs YAML overrides", function () {
-      const repoEdgesFixture = require("./fixtures/getAllRepositoriesResult")
-      const getAllRepositoriesStub = sinon.stub(clerk.GitHubClient.prototype, "getAllRepositories")
+      const getAllRepositoriesStub = sinon.stub(GitHubClient.prototype, "getAllRepositories")
       getAllRepositoriesStub.resolves(repoEdgesFixture)
-      const inventory = new clerk.Inventory(this.client, "ABC")
+      const inventory = new Inventory(this.client, "ABC")
 
       return inventory.getReleases("ABC").then((result) => {
         assert.equal(result[0].name, "Test 1 Override")
@@ -53,8 +53,7 @@ describe("Inventory", function () {
     })
 
     it("correctly performs local overrides", function () {
-      const repoEdgesFixture = require("./fixtures/getAllRepositoriesResult")
-      const getAllRepositoriesStub = sinon.stub(clerk.GitHubClient.prototype, "getAllRepositories")
+      const getAllRepositoriesStub = sinon.stub(GitHubClient.prototype, "getAllRepositories")
       getAllRepositoriesStub.resolves(repoEdgesFixture)
 
       const localOverrides = {
@@ -63,7 +62,7 @@ describe("Inventory", function () {
         }
       }
 
-      const inventory = new clerk.Inventory(this.client, "ABC", {
+      const inventory = new Inventory(this.client, "ABC", {
         localOverrides: localOverrides
       })
 
@@ -74,8 +73,7 @@ describe("Inventory", function () {
     })
 
     it("correctly performs a user-specified callback", function () {
-      const repoEdgesFixture = require("./fixtures/getAllRepositoriesResult")
-      const getAllRepositoriesStub = sinon.stub(clerk.GitHubClient.prototype, "getAllRepositories")
+      const getAllRepositoriesStub = sinon.stub(GitHubClient.prototype, "getAllRepositories")
       getAllRepositoriesStub.resolves(repoEdgesFixture)
 
       let callbackCounter = 0
@@ -84,7 +82,7 @@ describe("Inventory", function () {
         callbackCounter++
       }
 
-      const inventory = new clerk.Inventory(this.client, "ABC", {
+      const inventory = new Inventory(this.client, "ABC", {
         callback: callback
       })
 
@@ -96,13 +94,12 @@ describe("Inventory", function () {
     })
 
     it("correctly passes args to a user-specified callback", function () {
-      const repoEdgesFixture = require("./fixtures/getAllRepositoriesResult")
-      const getAllRepositoriesStub = sinon.stub(clerk.GitHubClient.prototype, "getAllRepositories")
+      const getAllRepositoriesStub = sinon.stub(GitHubClient.prototype, "getAllRepositories")
       getAllRepositoriesStub.resolves(repoEdgesFixture)
 
       const callback = sinon.spy()
 
-      const inventory = new clerk.Inventory(this.client, "ABC", {
+      const inventory = new Inventory(this.client, "ABC", {
         callback: callback
       })
 
@@ -116,7 +113,7 @@ describe("Inventory", function () {
   describe("#cleanup()", function () {
     it("repairs poorly formed URIs", function () {
       const uriFixture = JSON.parse(loadFixture("uriCleanupInvalid.json"))
-      const inventory = new clerk.Inventory(this.client, "ABC")
+      const inventory = new Inventory(this.client, "ABC")
       const result = inventory.cleanup(uriFixture)
       assert.equal(result.repositoryURL, "https://extraneous-spaces.example.com/")
       assert.equal(result.homepageURL, "http://missing-schema.example.com/path")
@@ -124,7 +121,7 @@ describe("Inventory", function () {
 
     it("ensures tags are always strings", function () {
       const tagFixture = JSON.parse(loadFixture("tagCleanupInvalid.json"))
-      const inventory = new clerk.Inventory(this.client, "ABC")
+      const inventory = new Inventory(this.client, "ABC")
       const result = inventory.cleanup(tagFixture)
       assert(result.tags.includes("foo"))
       assert(result.tags.includes("123"))
@@ -143,7 +140,7 @@ describe("Inventory", function () {
         "nonexistent": nonexistent
       }`
       const repoData = JSON.parse(loadFixture("repositoryQueryResponse.json")).data.repository
-      const inventory = new clerk.Inventory(this.client, "ABC")
+      const inventory = new Inventory(this.client, "ABC")
       inventory.applyTransform(transform, repoData).then((result) => {
         assert.equal(result.name, "cto-website")
         assert.equal(result.description, "Tech at GSA website")
@@ -156,7 +153,7 @@ describe("Inventory", function () {
     it("returns a format compliant with Code.gov schema", function () {
       const validator = djv({ version: "draft-04" })
       validator.addSchema("2.0.0", JSON.parse(loadFixture("codegov-schema-2.0.0.json")))
-      const inventory = new clerk.Inventory(this.client, "ABC")
+      const inventory = new Inventory(this.client, "ABC")
       const metadata = inventory.metadata()
       assert(validator.validate("2.0.0", metadata))
       assert.equal(metadata.version, "2.0.0")
