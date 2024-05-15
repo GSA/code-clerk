@@ -144,10 +144,11 @@ describe("Inventory", function () {
       }`
       const repoData = JSON.parse(loadFixture("repositoryQueryResponse.json")).data.repository
       const inventory = new clerk.Inventory(this.client, "ABC")
-      const result = inventory.applyTransform(transform, repoData)
-      assert.equal(result.name, "cto-website")
-      assert.equal(result.description, "Tech at GSA website")
-      assert.equal(result.nonexistent, undefined)
+      inventory.applyTransform(transform, repoData).then((result) => {
+        assert.equal(result.name, "cto-website")
+        assert.equal(result.description, "Tech at GSA website")
+        assert.equal(result.nonexistent, undefined)
+      })
     })
   })
 
