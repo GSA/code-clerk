@@ -19,7 +19,6 @@
               },
               "isPrivate": false,
               "url": "https://github.com/18F/api.data.gov",
-              "codeInventoryFile": null,
               "homepageUrl": "https://api.data.gov",
               "languages": {
                 "nodes": [
@@ -57,7 +56,6 @@
               },
               "isPrivate": false,
               "url": "https://github.com/18F/omniauth-myusa",
-              "codeInventoryFile": null,
               "homepageUrl": null,
               "languages": {
                 "nodes": [
@@ -86,7 +84,6 @@
               },
               "isPrivate": false,
               "url": "https://github.com/18F/PriceHistoryAPI",
-              "codeInventoryFile": null,
               "homepageUrl": null,
               "languages": {
                 "nodes": [

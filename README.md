@@ -56,7 +56,7 @@ codeclerk -t GITHUB_TOKEN -o code.json XYZ XYZ
 
 ### Basic API Usage
 
-You can easily integrate Code Clerk into your project. Just instantiate a client and run the inventory on your GitHub organization(s). The data returned by the inventory follows the `code.json` format. If your repository includes a `.codeinventory.yml` file, its contents will override any metadata that Code Clerk automatically pulls from GitHub.
+You can easily integrate Code Clerk into your project. Just instantiate a client and run the inventory on your GitHub organization(s). The data returned by the inventory follows the `code.json` format.
 
 ```javascript
 import { GitHubClient, Inventory } from "code-clerk"

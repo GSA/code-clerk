@@ -40,18 +40,6 @@ describe("Inventory", function () {
   })
 
   describe("#getReleases()", function () {
-    it("correctly performs YAML overrides", function () {
-      const getAllRepositoriesStub = sinon.stub(GitHubClient.prototype, "getAllRepositories")
-      getAllRepositoriesStub.resolves(repoEdgesFixture)
-      const inventory = new Inventory(this.client, "ABC")
-
-      return inventory.getReleases("ABC").then((result) => {
-        assert.equal(result[0].name, "Test 1 Override")
-        assert.equal(result[0].description, "Description override")
-        assert.equal(result[1].name, "mobile-fu")
-      })
-    })
-
     it("correctly performs local overrides", function () {
       const getAllRepositoriesStub = sinon.stub(GitHubClient.prototype, "getAllRepositories")
       getAllRepositoriesStub.resolves(repoEdgesFixture)

@@ -23,9 +23,6 @@
       },
       "isPrivate": false,
       "url": "https://github.com/GSA/cto-website",
-      "codeInventoryFile": {
-        "text": "name: Tech at GSA Website\ncontact:\n  email: cto@gsa.gov\nlanguages:\n  - javascript\n  - ruby\n"
-      },
       "homepageUrl": "https://tech.gsa.gov/",
       "languages": {
         "nodes": [
