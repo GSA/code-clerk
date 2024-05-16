@@ -1,4 +1,3 @@
-import yaml from "js-yaml"
 import jsonata from "jsonata"
 import { defaultGitHubTransform } from "./transforms.js"
 
@@ -46,12 +45,6 @@ export class Inventory {
           let releaseMetadata = await this.applyTransform(this.transform, repoEdge.node)
 
           const overrides = []
-
-          // If there's a .codeinventory.yml file in the repo, use its metadata instead
-          if (repoEdge.node.codeInventoryFile != null) {
-            const yamlOverrides = yaml.load(repoEdge.node.codeInventoryFile.text)
-            overrides.push(yamlOverrides)
-          }
 
           // If there are local overrides, include those
           if (this.localOverrides) {

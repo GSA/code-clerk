@@ -43,11 +43,6 @@ export const organizationQuery = `query($org: String!, $cursor: String, $itemsPe
           }
           isPrivate
           url
-          codeInventoryFile: object(expression: "HEAD:.codeinventory.yml") {
-            ... on Blob {
-              text
-            }
-          }
           homepageUrl
           languages(first: 100) {
             nodes {
@@ -91,11 +86,6 @@ export const repositoryQuery = `query($org: String!, $repo: String!) {
     }
     isPrivate
     url
-    codeInventoryFile: object(expression: "HEAD:.codeinventory.yml") {
-      ... on Blob {
-        text
-      }
-    }
     homepageUrl
     languages(first: 100) {
       nodes {
