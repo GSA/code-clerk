@@ -12,24 +12,24 @@ export class FileClient {
   /**
    * Get all repositories in the given GitHub organization.
    *
-   * @param {String} org GitHub organization name
+   * @param {String} org GitHub organization name (ignored for FileClient)
    * @returns {Promise<any[]>} An array of repositories
    */
   async getAllRepositories(org) {
     const contents = await fs.readFile(this.filename)
     const metadata = JSON.parse(contents)
-    const result = metadata.data.organization.repositories.edges
-    return result
+    return metadata.data.organization.repositories.edges
   }
 
   /**
    * Get a specific repository in the given GitHub organization.
    *
-   * @param {String} org GitHub organization name
+   * @param {String} org GitHub organization name (ignored for FileClient)
    * @param {String} repo GitHub repository name
    * @returns {Promise<any>} A repository
    */
-  getRepository(org, repo) {
-    throw new Error('Method not implemented')
+  async getRepository(org, repo) {
+    const repos = await this.getAllRepositories(org)
+    return repos.find((r) => r.node.name === repo)?.node
   }
 }

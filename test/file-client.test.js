@@ -20,4 +20,19 @@ describe("FileClient", function () {
       })
     })
   })
+
+  describe("#getRepository()", function () {
+    it("should return GitHub metadata as an object", function () {
+      return this.client.getRepository("dummyorg", "api.data.gov").then((actualResponse) => {
+        assert.equal(actualResponse.name, "api.data.gov")
+        assert.equal(actualResponse.languages.nodes.length, 4)
+      })
+    })
+
+    it("should return undefined if no repo matches", function () {
+      return this.client.getRepository("dummyorg", "NONEXISTENT").then((actualResponse) => {
+        assert.equal(actualResponse, undefined)
+      })
+    })
+  })
 })
