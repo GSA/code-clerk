@@ -1,6 +1,6 @@
 {
   "name": "code-clerk",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Pulls project metadata from GitHub repositories.",
   "type": "module",
   "engines": {
