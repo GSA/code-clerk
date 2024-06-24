@@ -10,7 +10,8 @@
   "exports": "./lib/index.js",
   "scripts": {
     "test": "mocha",
-    "autotest": "supervisor -t -q -w src,lib,test,bin -n exit -x mocha -- -b"
+    "test:coverage": "c8 mocha",
+    "test:auto": "supervisor -t -q -w src,lib,test,bin -n exit -x c8 -- mocha -b"
   },
   "author": "Jeff Fredrickson <jeffrey.fredrickson@gsa.gov>",
   "license": "CC0-1.0",
@@ -24,13 +25,13 @@
   "dependencies": {
     "argparse": "^2.0.1",
     "dotenv": "^16.4.5",
-    "graphql-request": "^7.0.1",
+    "graphql-request": "^7.1.0",
     "jsonata": "^2.0.5"
   },
   "devDependencies": {
+    "c8": "^10.1.2",
     "djv": "^2.1.4",
     "mocha": "^10.4.0",
-    "nyc": "^15.1.0",
     "sinon": "^18.0.0",
     "supervisor": "^0.12.0"
   }
